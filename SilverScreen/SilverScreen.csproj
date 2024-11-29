@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <DefineConstants>$(DefineConstants);MELONLOADER</DefineConstants>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>disable</Nullable>
+    <Optimize>false</Optimize>
+
+    <OutputType>Library</OutputType>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+
+    <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>$(DefineConstants);RELEASE;TRACE</DefineConstants>
+
+    <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="../ref/**/*.dll" />
+
+    <Reference Remove="..\ref\**\System.*.dll"></Reference>
+    <Reference Remove="..\ref\**\Microsoft.Win32.SystemEvents.dll"></Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <GameDirFile Include="..\game_dir.txt"></GameDirFile>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!-- Read game_dir.txt into property -->
+    <ReadLinesFromFile File="@(GameDirFile)">
+      <Output TaskParameter="Lines" PropertyName="GameDir" />
+    </ReadLinesFromFile>
+
+    <!-- Copy the built mod dll into game Mods folder -->
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\Mods" />
+  </Target>
+
+</Project>
