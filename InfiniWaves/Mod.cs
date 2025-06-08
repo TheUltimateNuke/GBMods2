@@ -53,12 +53,14 @@ public class Mod : MelonMod
 
     public override void OnUpdate()
     {
-        if (Keyboard.current.vKey.IsPressed())
-            foreach (var statusHandler in Object.FindObjectsOfType<StatusHandeler>())
-            {
-                if (statusHandler.actor.IsAI)
-                    statusHandler.Kill();
-            }
+        if (Keyboard.current == null || !Keyboard.current.vKey.IsPressed())
+            return;
+
+        foreach (var statusHandler in Object.FindObjectsOfType<StatusHandeler>())
+        {
+            if (statusHandler.actor.IsAI)
+                statusHandler.Kill();
+        }
     }
 }
 
