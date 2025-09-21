@@ -82,6 +82,8 @@ StyleCopReport.xml
 *.pgc
 *.pgd
 *.rsp
+# but not Directory.Build.rsp, as it configures directory-level build defaults
+!Directory.Build.rsp
 *.sbr
 *.tlb
 *.tli
@@ -396,13 +398,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-# Cement-specific gitignore stuff
-**/ref/IL2CppAssemblies/*
-**/ref/net6/*
-Staging/
-game_dir.txt
-CementDocs.xml
 .idea/
+
+ref/**/*
+!ref/README.*
 
 dist/
