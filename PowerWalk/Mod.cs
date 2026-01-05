@@ -20,8 +20,22 @@ public class Mod : MelonMod
 
     private static readonly MelonPreferences_Category PowerWalkPrefCateg = MelonPreferences.CreateCategory("PowerWalk", "PowerWalk");
     private static readonly MelonPreferences_Entry<float> _powerWalkMoveSpeedPref = PowerWalkPrefCateg.CreateEntry("MoveSpeed", 1.5f, "Move Speed Multiplier", "How fast all beasts will move.");
+    private static readonly MelonPreferences_Entry<float> _powerWalkJumpForceMultiplierPref = PowerWalkPrefCateg.CreateEntry("JumpForceMultiplier", 1f, "Jump Force Multiplier", "How high all beasts will jump.");
     private static readonly MelonPreferences_Entry<bool> _powerWalkDisableInputSpamDecayPref = PowerWalkPrefCateg.CreateEntry("DisableInputSpamDecay", true, "Disable Input Spam Decay", "Whether to disable the force decay when punching or jumping too frequently.");
-    
+
+    public static float PowerWalkJumpForceMultiplier
+    {
+        get
+        {
+            return _powerWalkJumpForceMultiplierPref.Value;
+        }
+        set
+        {
+            _powerWalkJumpForceMultiplierPref.Value = value;
+            GameplayModifiers.jumpForceMul = value;
+        }
+    }
+
     public static bool DisableInputSpamDecay
     {
         get
@@ -48,6 +62,8 @@ public class Mod : MelonMod
     
     public override void OnInitializeMelon()
     {
+        PowerWalkJumpForceMultiplier = _powerWalkJumpForceMultiplierPref.Value;
+        
         LoggerInstance.Msg(System.ConsoleColor.Green,
             $"Mod {MyModInfo.Name} initialized!"); // You must use MelonLoader's Logger instance, NOT Unity's Debug.Log or the system console.
     }
