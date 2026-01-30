@@ -31,7 +31,6 @@ internal static class Patches
         }
         
         MelonCoroutines.Start(Mod.WaitForArmRelease(__instance, arm));
-        Melon<Mod>.Logger.Msg("WORKED");
     }
 }
 
