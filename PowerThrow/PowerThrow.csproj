@@ -88,6 +88,7 @@
 
         <!-- Copy the built mod dll into game Mods folder -->
         <Copy Condition="'$(GameDir)' != ''" SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\Mods"/>
+        <Copy Condition="'$(Configuration)' == 'Release'" SourceFiles="$(TargetPath)" DestinationFolder="dist\Mods"/>
     </Target>
 
     <!-- Generate MelonLoader mod info from MSBuild properties -->

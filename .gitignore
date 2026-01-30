@@ -406,3 +406,5 @@ CementDocs.xml
 .idea/
 
 dist/
+!dist/README.md
+!dist/icon.png
