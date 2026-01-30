@@ -121,6 +121,7 @@ namespace $(RootNamespace)
                 <![CDATA[ 
 {
     "name": "$(AssemblyName)",
+    "website_url": "",
     "version_number": "$(MelonLoaderModVersion)",
     "description": "$(Summary)",
     "dependencies": [
