@@ -6,6 +6,7 @@
         <!-- Feel free to change these if needed -->
         <AssemblyName>PowerWalk</AssemblyName>
         <Author>TheUltimateNuke</Author>
+        <Summary>Configurable walk, run, and jump speed.</Summary>
         <Version>1.0.0</Version>
         <!-- -->
 
@@ -86,6 +87,7 @@
 
         <!-- Copy the built mod dll into game Mods folder -->
         <Copy Condition="'$(GameDir)' != ''" SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\Mods"/>
+        <Copy Condition="'$(Configuration)' == 'Release'" SourceFiles="$(TargetPath)" DestinationFolder="dist\Mods"/>
     </Target>
 
     <!-- Generate MelonLoader mod info from MSBuild properties -->
@@ -112,5 +114,24 @@ internal static class MyModInfo
             <FileWrites Include="$(GeneratedFilePath)"/>
         </ItemGroup>
         <WriteLinesToFile Lines="$(GeneratedText)" File="$(GeneratedFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true"/>
+
+
+        <PropertyGroup>
+            <GeneratedTextManifestJson>
+                <![CDATA[ 
+{
+    "name": "$(AssemblyName)",
+    "website_url": "",
+    "version_number": "$(MelonLoaderModVersion)",
+    "description": "$(Summary)",
+    "dependencies": [
+        "LavaGang-MelonLoader-0.7.1"
+    ]
+}
+                ]]>
+            </GeneratedTextManifestJson>
+            <GeneratedFile2Path>dist/manifest.json</GeneratedFile2Path>
+        </PropertyGroup>
+        <WriteLinesToFile Lines="$(GeneratedTextManifestJson)" File="$(GeneratedFile2Path)" WriteOnlyWhenDifferent="true" Overwrite="true"/>
     </Target>
 </Project>
