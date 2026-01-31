@@ -1,4 +1,4 @@
-﻿# PowerThrow
+# PowerThrow
 
 Very simple patch mod allowing configurable throw force.
 
@@ -9,3 +9,5 @@ Very simple patch mod allowing configurable throw force.
 - Go to `UserData` (or your config files section if using a mod manager)
 - Open `MelonPreferences.cfg`
 - Change values to your liking. Everything should have descriptions telling you what they do
+
+Icon credit: https://www.flaticon.com/free-icons/throw
